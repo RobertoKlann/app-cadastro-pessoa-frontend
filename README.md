@@ -2,20 +2,64 @@ Tabela de conteúdos
 =================
 <!--ts-->
    * [Sobre o projeto](#-sobre-o-projeto)
-   * [Funcionalidades](#-funcionalidades)
-   * [Layout](#-layout)
-     * [Mobile](#mobile)
-     * [Web](#web)
+   * [Funcionalidades](#-funcionalidades)   
    * [Como executar o projeto](#-como-executar-o-projeto)
      * [Pré-requisitos](#pré-requisitos)
-     * [Rodando o Backend (servidor)](#user-content--rodando-o-backend-servidor)
      * [Rodando a aplicação web (Frontend)](#user-content--rodando-a-aplicação-web-frontend)
-   * [Tecnologias](#-tecnologias)
-     * [WebSite](#user-content-website--react----typescript)
-     * [Server](#user-content-server--nodejs----typescript)
-     * [Mobile](#user-content-mobile--react-native----typescript)
-   * [Contribuidores](#-contribuidores)
-   * [Como contribuir no projeto](#-como-contribuir-no-projeto)
    * [Autor](#-autor)
    * [Licença](#user-content--licença)
 <!--te-->
+
+## 💻 Sobre o projeto
+
+Agenda - aplicação de cadastro de pessoas e endereços.
+
+---
+
+## ⚙️ Funcionalidades
+
+- [x] Cadastro de pessoas, com campos:
+  - [x] nome
+  - [x] tipo da pessoa
+  - [x] cep ou cnpj
+  - [x] telefone
+  - [x] email
+- [x] Cadastro de endereços para a pessoa, com campos:
+  - [x] cep
+  - [x] logradouro
+  - [x] bairro
+  - [x] localidade
+  - [x] uf
+  - [x] número
+  - [x] tipo endereço
+---
+
+## 🚀 Como executar o projeto
+
+💡O Frontend precisa que o Backend esteja sendo executado para funcionar.
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com).
+
+#### 🧭 Rodando a aplicação web (Frontend)
+
+```bash
+
+# Clone este repositório
+$ git clone https://github.com/RobertoKlann/app-cadastro-pessoa-frontend.git
+
+# Acesse a pasta do projeto no seu terminal/cmd
+$ acessar a pasta do projeto, entrar na pasta public e abrir o arquivo index.html no navegador
+```
+---
+
+## 🦸 Autor
+
+Roberto Oswaldo Klann
+---
+
+## 📝 Licença
+
+Este projeto esta sobe a licença [MIT](./LICENSE).
