@@ -1,0 +1,27 @@
+{
+  "name": "app-cadastro-pessoa-nodejs",
+  "version": "1.0.0",
+  "description": "Aplicação de cadastro de pessoas com Node js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertoKlann/app-cadastro-pessoa-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertoKlann/app-cadastro-pessoa-nodejs/issues"
+  },
+  "homepage": "https://github.com/RobertoKlann/app-cadastro-pessoa-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "toastr": "^2.1.4"
+  }
+}

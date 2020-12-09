@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="loading.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="toastr.css">
+
+    <title>Cadastro pessoa</title>
+</head>
+<body>
+    <div id="loading" class="loader loader-default" data-half></div>
+    <div id="content-pai">
+        <h1 class="text-light text-md-center">Cadastro de pessoas</h1>
+        <hr class="text-light border-light">
+        <button class="btn rounded" type="button" title="Novo registro" id="btn-novo">
+            <i class="fas fa-plus"></i>
+            Novo registro
+        </button>
+
+        <button class="btn rounded" type="button" title="Buscar registros" id="btn-consultar">
+            <i class="fas fa-search"></i>
+            Consultar
+        </button>
+
+        <div class="card mt-2 p-2 d-none" id="card-cadastro">
+            <span id="btn-close" title="Cancelar"><i class="fas fa-times float-right"></i></span>
+            <form class="row" action="">
+                <div class="col-3 mt-2 mb-2">
+                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome">
+                </div>
+                <div class="col-2 mt-2 mb-2">
+                    <select class="form-control" name="tipo" id="tipo">
+                        <option value="1">Física</option>
+                        <option value="2">Jurídica</option>
+                    </select>
+                </div>
+                <div class="col-2 mt-2 mb-2">
+                    <input class="form-control cpf" type="text" name="cpf" id="cpf" placeholder="CPF">
+                    <input class="form-control cnpj d-none" type="text" name="cnpj" id="cnpj" placeholder="CNPJ">
+                </div>
+                <div class="col-2 mt-2 mb-2">
+                    <input class="form-control phone_with_ddd" type="text" name="telefone" id="telefone" placeholder="Telefone">
+                </div>
+                <div class="col-3 mt-2">
+                    <input class="form-control" type="email" name="email" id="email" placeholder="E-mail">
+                </div>
+
+                <div class="col-12">
+                    <span class="ml-4 text-info cursor-pointer" id="add-endereco" title="Adicionar endereço">Adicionar endereço(s)</span>
+                </div>
+
+                <div class="row d-none ml-4" id="content-enderecos">
+                    <div class="row ml-1" item="1">
+                        <div class="col-2 mt-2 mb-2">
+                            <input class="form-control cep" type="text" name="cep" id="cep" placeholder="CEP" onchange="onChangeCEP(1);">
+                        </div>
+    
+                        <div class="col-3 mt-2 mb-2">
+                            <input class="form-control" type="text" name="logradouro" id="logradouro" placeholder="Logradouro" disabled>
+                        </div>
+    
+                        <div class="col-2 mt-2 mb-2">
+                            <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro" disabled>
+                        </div>
+    
+                        <div class="col-2 mt-2 mb-2">
+                            <input class="form-control" type="text" name="localidade" id="localidade" placeholder="Localidade" disabled>
+                        </div>
+    
+                        <div class="col-1 mt-2 mb-2">
+                            <input class="form-control" type="text" name="uf" id="uf" placeholder="UF" disabled>
+                        </div>
+    
+                        <div class="col-2 mt-2 mb-2">
+                            <button class="btn btn-info" type="button" title="Novo endereço" onclick="addFieldEndereco()"><i class="fas fa-plus"></i></button>
+                            <button class="ml-1 btn btn-info" type="button" title="Novo endereço" onclick="removeFieldEndereco(1)"><i class="fas fa-minus"></i></button>
+                        </div>
+
+                        <div class="col-1 mt-2 mb-2">
+                            <input class="form-control" type="text" name="numero" id="numero" placeholder="N°">
+                        </div>
+
+                        <div class="col-2 mt-2 mb-2">
+                            <select class="form-control" name="endtipo" id="endtipo">
+                                <option value="1">Residencial</option>
+                                <option value="2">Comercial</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 ml-1 mt-1">
+                    <button class="btn btn-success" type="button" id="btn-confirmar"><i class="fas fa-save"></i> Confirmar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card mt-4">
+            <table class="table table-light table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">CPF/CNPJ</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">E-mail</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-table">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+    <script src="toastr.js"></script>
+    <script src="Table.js"></script>
+    
+    <script src="app.js"></script>
+</body>
+</html>
