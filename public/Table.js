@@ -57,6 +57,7 @@ class Table {
                 <td class="${(data.pestipo == 1) ? 'cpf' : 'cnpj'}">${data.pescpfcnpj}</td>
                 <td class="phone_with_ddd">${data.pestelefone}</td>
                 <td>${data.pesemail}</td>
+                <td><button class="btn btn-sm btn-info" type="buttoon" title="Endereços" data-toggle="modal" data-target="#modal-enderecos" onclick="onClickModalEndereco(${data.pescodigo})"><i class="fas fa-search"></i></button></td>
             </tr>
         `;
     }

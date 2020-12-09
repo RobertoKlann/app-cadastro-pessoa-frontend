@@ -25,3 +25,8 @@ body {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.modal-endercos {
+    width: 98%;
+    max-width: 98%;
+}

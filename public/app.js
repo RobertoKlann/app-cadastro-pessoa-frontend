@@ -164,6 +164,9 @@ function onChangeCEP(indiceItem) {
     });
 }
 
+/**
+ * Limpa os inputs do grid de endereços.
+ */
 function cleanInputsEndereco() {
     let qtdeRowsGridEndereco = $('[name=cep]');
 
@@ -177,6 +180,9 @@ function cleanInputsEndereco() {
     }
 }
 
+/**
+ * Limpa os inputs do cadastro da pessoa.
+ */
 function cleanInputsPessoa() {
     $('[name=nome]').val(''),
     $('[name=cpf]').val('');
@@ -185,6 +191,9 @@ function cleanInputsPessoa() {
     $('[name=email]').val('');
 }
 
+/**
+ * Chama a inclusão da pessoa na API.
+ */
 async function callStorePessoa() {
     let bValidaEndereco;
     let qtdeRowsGridEndereco = $('[name=cep]');
@@ -259,6 +268,9 @@ async function callStorePessoa() {
     });
 }
 
+/**
+ * Valida o campo EMAIL da pessoa.
+ */
 function validaCampoEmail() {
     let usuario = $('[name=email]').val().substring(0, $('[name=email]').val().indexOf("@")),
         dominio = $('[name=email]').val().substring($('[name=email]').val().indexOf("@") + 1, $('[name=email]').val().length);
@@ -273,6 +285,11 @@ function validaCampoEmail() {
     return false;
 }
 
+/**
+ * Valida os campos de cadastro do GRID de endereços.
+ * 
+ * @param {int} i 
+ */
 async function validaCamposGridEndereco(i) {
     if($(`div[item=${i}] [name=cep]`).val() && !$(`div[item=${i}] [name=logradouro]`).val()) {
         return {'status': false, 'campo': 'LOGRADOURO', 'linha': i};
@@ -301,6 +318,9 @@ async function validaCamposGridEndereco(i) {
     return {'status': true};
 }
 
+/**
+ * Valida os campos de cadastro da pessoa.
+ */
 function validaCamposPessoa() {
     if(!$(`[name=nome]`).val()) {
         return {'status': false, 'campo': 'NOME'};
@@ -331,12 +351,103 @@ function validaCamposPessoa() {
     return {'status': true};
 }
 
+/**
+ * Busca os dados de endereços da pessoa passado por parâmetro na API e exibe no modal.
+ * 
+ * @param {int} codigo_pessoa 
+ */
+async function onClickModalEndereco(codigo_pessoa) {
+    loadingStart();
+
+    //buscnado na API os dados do endereços da pessoa
+    await axios.get(`http://localhost:5000/pessoas/enderecos?codigo_pessoa=${codigo_pessoa}`)
+    .then(function (response) {
+        let rows = ``;
+
+        //Se não tem enderço apenas diz que não tem
+        if(response.data.data.length == 0) {
+            rows+= `<span class="text-dark">Não há endereços para essa pessoa</span>`;
+        }
+
+        //criando as linhas de endereço
+        for(var i = 0; i < response.data.data.length; i++) {
+            rows+= createRowEndereco(response.data.data[i]);
+        }
+
+        //limpando e injetando o HTML das linhas
+        $('#body-modal-endereco')[0].innerHTML = ``;
+        $('#body-modal-endereco').append(rows);
+
+        //destroindo loader
+        loadingDestroy();
+    }).catch(function (error) {
+        //destroindo loader
+        loadingDestroy();
+
+        console.clear(error);
+        toastr['warning']("Não foi possível buscar os dados do endereço!");
+    });
+}
+
+/**
+ * Cria as linhas de endereço.
+ * 
+ * @param {Object} data 
+ */
+function createRowEndereco(data) {
+    return `
+        <div class="row p-2">
+            <div class="col-1 mt-2 mb-2">
+                <input class="form-control cep" type="text" name="consulta-cep" placeholder="CEP" disabled value="${data.endcep}">
+            </div>
+
+            <div class="col-3 mt-2 mb-2">
+                <input class="form-control" type="text" name="consulta-logradouro" placeholder="Logradouro" disabled value="${data.endlogradouro}">
+            </div>
+
+            <div class="col-2 mt-2 mb-2">
+                <input class="form-control" type="text" name="consulta-bairro" placeholder="Bairro" disabled value="${data.endbairro}">
+            </div>
+
+            <div class="col-2 mt-2 mb-2">
+                <input class="form-control" type="text" name="consulta-localidade" placeholder="Localidade" disabled value="${data.endlocalidade}">
+            </div>
+
+            <div class="col-1 mt-2 mb-2">
+                <input class="form-control" type="text" name="consulta-uf" placeholder="UF" disabled value="${data.enduf}">
+            </div>
+
+            <div class="col-1 mt-2 mb-2">
+                <input class="form-control" type="text" name="consulta-numero" placeholder="N°" disabled value="${data.endnumero}">
+            </div>
+
+            <div class="col-2 mt-2 mb-2">
+                <select class="form-control" name="consulta-endtipo" disabled>
+                    <option ${(data.endtipo == 1) ? 'selected' : ''} value="1">Residencial</option>
+                    <option ${(data.endtipo == 2) ? 'selected' : ''} value="2">Comercial</option>
+                </select>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Cria o loader.
+ * 
+ * @param {String} id 
+ */
 function loadingStart(id) {
     if (!id) id = 'loading';
 
     byId(id).classList.add('is-active');
 }
 
+/**
+ * Destroi o loader criado.
+ * 
+ * @param {String} id 
+ * @param {int} _timeout 
+ */
 function loadingDestroy(id, _timeout) {
     if (!id) id = 'loading';
 
@@ -345,6 +456,11 @@ function loadingDestroy(id, _timeout) {
     setTimeout(() => byId(id).classList.remove('is-active'), timeout);
 }
 
+/**
+ * Encontra o elemento com base no ID passado por parâmetro.
+ * 
+ * @param {String} id 
+ */
 function byId(id) {
     return document.getElementById(id);
 }

@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="toastr.css">
 
-    <title>Cadastro pessoa</title>
+    <title>Agenda</title>
 </head>
 <body>
     <div id="loading" class="loader loader-default" data-half></div>
     <div id="content-pai">
-        <h1 class="text-light text-md-center">Cadastro de pessoas</h1>
+        <h1 class="text-light text-md-center">Agenda - Cadastro de pessoas</h1>
         <hr class="text-light border-light">
-        <button class="btn rounded" type="button" title="Novo registro" id="btn-novo">
+        <button class="btn rounded" type="button" title="Incluir novo contato" id="btn-novo">
             <i class="fas fa-plus"></i>
-            Novo registro
+            Novo Contato
         </button>
 
         <button class="btn rounded" type="button" title="Buscar registros" id="btn-consultar">
@@ -110,6 +110,7 @@
                         <th scope="col">CPF/CNPJ</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">E-mail</th>
+                        <th scope="col">Endereço(s)</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-table">
@@ -119,6 +120,25 @@
         </div>
     </div>
 
+    <!-- Modal de endereços -->
+    <div class="modal fade" id="modal-enderecos" tabindex="-1" role="dialog" aria-labelledby="modal-enderecos-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-endercos" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-enderecos-title">Endereço(s)</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="body-modal-endereco">
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
