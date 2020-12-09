@@ -36,7 +36,7 @@ Agenda - aplicação de cadastro de pessoas e endereços.
 
 ## 🚀 Como executar o projeto
 
-💡O Frontend precisa que o Backend esteja sendo executado para funcionar.
+💡O Frontend precisa que o Backend esteja sendo executado para funcionar por completo.
 
 ### Pré-requisitos
 
