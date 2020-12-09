@@ -194,6 +194,10 @@ async function callStorePessoa() {
         return toastr['warning'](`O campo ${bValidaCamposPessoa.campo} não foi preenchido e é obrigatório!`);
     }
 
+    if(!validaCampoEmail()) {
+        return toastr['warning'](`Campo EMAIL inválido!`);
+    }
+
     const enderecos = [];
 
     for(var i = 1; i <= qtdeRowsGridEndereco.length; i++) {
@@ -253,6 +257,20 @@ async function callStorePessoa() {
         console.clear(error);
         toastr['warning']("Não foi possível incluir os dados!");
     });
+}
+
+function validaCampoEmail() {
+    let usuario = $('[name=email]').val().substring(0, $('[name=email]').val().indexOf("@")),
+        dominio = $('[name=email]').val().substring($('[name=email]').val().indexOf("@") + 1, $('[name=email]').val().length);
+
+    if ((usuario.length >=1) && (dominio.length >=3) && (usuario.search("@")==-1) && (dominio.search("@")==-1) 
+            && (usuario.search(" ")==-1) && (dominio.search(" ")==-1) && (dominio.search(".")!=-1) && (dominio.indexOf(".") >=1)
+            && (dominio.lastIndexOf(".") < dominio.length - 1))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 async function validaCamposGridEndereco(i) {
