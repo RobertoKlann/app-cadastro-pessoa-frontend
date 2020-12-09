@@ -51,7 +51,9 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 $ git clone https://github.com/RobertoKlann/app-cadastro-pessoa-frontend.git
 
 # Acesse a pasta do projeto no seu terminal/cmd
-$ acessar a pasta do projeto, entrar na pasta public e abrir o arquivo index.html no navegador
+$ cd app-cadastro-pessoa-frontend
+
+# Abrir index.html do projeto que está dentro de public
 ```
 ---
 
