@@ -1,2 +1,2 @@
-# app-cadastro-pessoa-nodejs
-Aplicação de cadastro de pessoas com Node js
+# app-cadastro-pessoa-frontend
+Aplicação de cadastro de pessoas
