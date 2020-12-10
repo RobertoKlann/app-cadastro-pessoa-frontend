@@ -42,6 +42,7 @@ Agenda - aplicação de cadastro de pessoas e endereços.
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com).
+Necessita do projeto [api-pessoa-nodejs](https://github.com/RobertoKlann/api-pessoa-nodejs) para funcionar por completo.
 
 #### 🧭 Rodando a aplicação web (Frontend)
 
